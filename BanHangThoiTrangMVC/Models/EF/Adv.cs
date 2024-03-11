@@ -23,5 +23,10 @@ namespace BanHangThoiTrangMVC.Models.EF
         [StringLength(500)]
         public string Link { get; set; }
         public int Type { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
     }
 }

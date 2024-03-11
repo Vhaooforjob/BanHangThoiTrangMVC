@@ -11,6 +11,28 @@ namespace BanHangThoiTrangMVC.Models.EF
     [Table("tb_News")]
     public class News : CommonAbstract
     {
+        public News() { }
+
+        public News(int id, string title, string alias, string description, string detail, string image, int categoryId, string seoTitle,
+        string seoDescription, string seoKeywords, bool isActive, string createBy, DateTime createDate, DateTime modifiedDate, string modifiedBy) : base(createBy, createDate, modifiedDate, modifiedBy)
+        {
+            Id = id;
+            Title = title;
+            Alias = alias;
+            Description = description;
+            Detail = detail;
+            Image = image;
+            CategoryId = categoryId;
+            SeoTitle = seoTitle;
+            SeoDescription = seoDescription;
+            SeoKeywords = seoKeywords;
+            IsActive = isActive;
+        }
+
+        public News(string createBy, DateTime createDate, DateTime modifiedDate, string modifiedBy) : base(createBy, createDate, modifiedDate, modifiedBy)
+        {
+        }
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -28,5 +50,11 @@ namespace BanHangThoiTrangMVC.Models.EF
         public string SeoKeywords { get; set; }
         public bool IsActive { get; set; }
         public virtual Category Category { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
+
     }
 }
