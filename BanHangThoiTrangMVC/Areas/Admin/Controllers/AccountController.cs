@@ -126,7 +126,6 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
                 AddErrors(result);
             }
             ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
         private void AddErrors(IdentityResult result)
@@ -187,19 +186,27 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         }
         //
         // POST: /Account/LogOff
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult LogOff()
+        //{
+        //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        //    return RedirectToAction("Index", "Home");
+        //}
+        //private IAuthenticationManager AuthenticationManager
+        //{
+        //    get
+        //    {
+        //        return HttpContext.GetOwinContext().Authentication;
+        //    }
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.Instance(HttpContext.GetOwinContext().Authentication).SignOut();
             return RedirectToAction("Index", "Home");
-        }
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
         }
 
         public ActionResult Edit(string id)
@@ -236,7 +243,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
                 var result = await UserManager.UpdateAsync(model);
                 if (result.Succeeded)
                 {
-                    UserManager.Update(model); // Lưu ý dòng này khi đăng ký thành công để nó add vào table UserRole
+                    UserManager.Update(model);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
