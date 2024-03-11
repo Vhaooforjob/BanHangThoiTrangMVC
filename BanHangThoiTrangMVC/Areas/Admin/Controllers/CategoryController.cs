@@ -2,6 +2,7 @@
 using BanHangThoiTrangMVC.Models.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,19 +10,17 @@ using System.Web.Mvc;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class CategoryController : Controller
+    public class CategoryController : BaseController<Category>
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Category
         public ActionResult Index()
         {
-            var items = db.Categories;
-            return View(items);
+            return CustomIndex();
         }
 
         public ActionResult Add()
         {
-            return View();
+            return CustomAdd(new Category());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -32,7 +31,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
                 model.CreateDate = DateTime.Now;
                 model.ModifiedDate = DateTime.Now;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
-                db.Categories.Add(model);
+                db.Set<Category>().Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -41,8 +40,8 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            var item = db.Categories.Find(id);
-            return View(item);
+            var item = db.Set<Category>().Find(id);
+            return CustomEdit(item);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,15 +70,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 
         public ActionResult Delete(int id)
         {
-            var item = db.Categories.Find(id);
-            if (item != null)
-            {
-                /*var DeteleItem = db.Categories.Attach(item);*/
-                db.Categories.Remove(item);
-                db.SaveChanges();
-                return Json(new { success = true });
-            }
-            return Json(new { success = false });
+            return CustomDelete(id);
         }
     }
 }

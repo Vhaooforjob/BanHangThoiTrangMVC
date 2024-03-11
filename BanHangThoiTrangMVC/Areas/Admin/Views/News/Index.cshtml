@@ -46,12 +46,15 @@
 
             <div class="card-tools">
                 <a href="/admin/news/add" class="btn btn-primary">Thêm Mới</a>
-                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa All</a>
+                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa Tất cả</a>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-6">
+                <div class="col-9">
+
+                </div>
+                <div class="col-3">
                     @using (Html.BeginForm("Index", "News", FormMethod.Get, new { }))
                     {
                         <div class="input-group input-group-sm">
