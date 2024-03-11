@@ -36,5 +36,10 @@ namespace BanHangThoiTrangMVC.Models.EF
         public int Position { get; set; }
         public ICollection<News> News { get; set; }
         public ICollection<Posts> Posts { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
     }
 }

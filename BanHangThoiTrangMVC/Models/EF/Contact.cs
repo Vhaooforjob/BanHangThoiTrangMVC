@@ -25,5 +25,10 @@ namespace BanHangThoiTrangMVC.Models.EF
         [StringLength(4000)]
         public string Message { get; set; }
         public string IsRead { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
     }
 }

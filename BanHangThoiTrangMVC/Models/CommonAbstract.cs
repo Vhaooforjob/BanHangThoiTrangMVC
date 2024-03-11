@@ -7,9 +7,19 @@ namespace BanHangThoiTrangMVC.Models
 {
     public abstract class CommonAbstract
     {
+        public CommonAbstract() { }
+        public CommonAbstract(string createBy, DateTime createDate, DateTime modifiedDate, string modifiedBy)
+        {
+            CreateBy = createBy;
+            CreateDate = createDate;
+            ModifiedDate = modifiedDate;
+            ModifiedBy = modifiedBy;
+        }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+
+        public abstract CommonAbstract Clone();
     }
 }
