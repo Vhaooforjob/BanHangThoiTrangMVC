@@ -16,6 +16,7 @@ namespace BanHangThoiTrangMVC.Models
         public string Fullname { get; set; }
         public string Phone { get; set; }
         public List<string> RoleNames { get; set; }
+        public ApplicationUser() { }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -30,6 +30,26 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         {
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
-
+        public void ExpireAllCookies()
+        {
+            if (HttpContext.Current != null)
+            {
+                int cookieCount = HttpContext.Current.Request.Cookies.Count;
+                for (var i = 0; i < cookieCount; i++)
+                {
+                    var cookie = HttpContext.Current.Request.Cookies[i];
+                    if (cookie != null)
+                    {
+                        var expiredCookie = new HttpCookie(cookie.Name)
+                        {
+                            Expires = DateTime.Now.AddDays(-1),
+                            Domain = cookie.Domain
+                        };
+                        HttpContext.Current.Response.Cookies.Add(expiredCookie);
+                    }
+                }
+                HttpContext.Current.Request.Cookies.Clear();
+            }
+        }
     }
 }

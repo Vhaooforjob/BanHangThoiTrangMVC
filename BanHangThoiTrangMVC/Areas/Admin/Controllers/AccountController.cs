@@ -206,6 +206,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.Instance(HttpContext.GetOwinContext().Authentication).SignOut();
+            AuthenticationManager.Instance(HttpContext.GetOwinContext().Authentication).ExpireAllCookies();
             return RedirectToAction("Index", "Home");
         }
 
