@@ -1075,11 +1075,10 @@ section
 	opacity: 1;
 	top: calc(100% + 1px);
 }
-.page_total
-{
+.page_total {
 	display: inline-block;
 	line-height: 40px;
-	margin-right: 31px;
+	margin-right: 16px;
 }
 .page_total span
 {
