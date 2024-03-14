@@ -34,5 +34,10 @@ namespace BanHangThoiTrangMVC.Models.EF
         public string SeoKeywords { get; set; }
 
         public ICollection<Product> Products { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
     }
 }

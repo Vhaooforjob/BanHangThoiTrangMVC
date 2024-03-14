@@ -55,11 +55,14 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
-                model.CreateDate = DateTime.Now;
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.CategoryId = 5;
-                model.ModifiedDate = DateTime.Now;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
                 db.News.Add(model);
                 db.SaveChanges();
@@ -79,11 +82,14 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
                 db.News.Attach(model);
-                model.CreateDate = DateTime.Now;
-                model.ModifiedDate = DateTime.Now;
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
