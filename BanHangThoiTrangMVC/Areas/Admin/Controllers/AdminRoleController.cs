@@ -12,7 +12,7 @@ using System.Web.Security;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class RoleController : Controller
+    public class AdminRoleController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Role

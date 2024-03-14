@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
-    public class ProductCategoryController : Controller
+    public class AdminProductCategoryController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/ProductCategory
