@@ -1,7 +1,5 @@
+using BanHangThoiTrangMVC.ExtensionAndHelper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,9 +11,11 @@ namespace BanHangThoiTrangMVC
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MapperServiceCollection.Configure();
 
             Application["HomNay"] = 0;
             Application["HomQua"] = 0;
@@ -56,5 +56,16 @@ namespace BanHangThoiTrangMVC
             Application["visitors_online"] = Convert.ToUInt32(Application["visitors_online"]) - 1;
             Application.UnLock();
         }
+        //protected void Application_BeginRequest(object sender, EventArgs e)
+        //{
+        //    var dbContext = new ApplicationDbContext();
+        //    HttpContext.Current.Items["DbContext"] = dbContext;
+        //}
+        //protected void Application_EndRequest(object sender, EventArgs e)
+        //{
+        //    var dbContext = HttpContext.Current.Items["DbContext"] as ApplicationDbContext;
+        //    dbContext?.Dispose();
+        //}
+
     }
 }
