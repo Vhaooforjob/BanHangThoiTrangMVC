@@ -28,7 +28,7 @@ namespace BanHangThoiTrangMVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Server=.;Database=BanHangThoiTrangMVC;TrustServerCertificate=true;Trusted_Connection=True", throwIfV1Schema: false)
         {
         }
 

@@ -15,7 +15,7 @@ namespace BanHangThoiTrangMVC
 
             routes.MapRoute(
                 name: "Contact",
-                url: "lien-he",
+                url: "contacts",
                 defaults: new { controller = "Contact", action = "Index", alias = UrlParameter.Optional },
                 namespaces: new[] { "BanHangThoiTrangMVC.Controllers" }
             );
@@ -49,7 +49,7 @@ namespace BanHangThoiTrangMVC
 
             routes.MapRoute(
                 name: "BaiViet",
-                url: "bai-viet/{alias}",
+                url: "blogs/{alias}",
                 defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "BanHangThoiTrangMVC.Controllers" }
             );
@@ -63,7 +63,7 @@ namespace BanHangThoiTrangMVC
 
             routes.MapRoute(
                 name: "News",
-                url: "tin-tuc",
+                url: "news",
                 defaults: new { controller = "News", action = "Index", alias = UrlParameter.Optional },
                 namespaces: new[] { "BanHangThoiTrangMVC.Controllers" }
             );

@@ -10,12 +10,8 @@ using System.Web.Mvc;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin,Employee")]
-    public class NewsController : Controller
+    public class NewsController : BaseController<News>
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Admin/News
-
-        //pagelist cách 2
         public ActionResult Index(string Searchtext, int? page)
         {
             var pageSize = 5;
@@ -52,18 +48,21 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 
         public ActionResult Add()
         {
-            return View();
+            return CustomAdd(new News());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Add(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
-                model.CreateDate = DateTime.Now;
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.CategoryId = 5;
-                model.ModifiedDate = DateTime.Now;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
                 db.News.Add(model);
                 db.SaveChanges();
@@ -73,19 +72,24 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         }
         public ActionResult Edit(int Id)
         {
-            var item = db.News.Find(Id);
-            return View(item);
+            //var item = db.News.Find(Id);
+            //return View(item);
+            var item = db.Set<News>().Find(Id);
+            return CustomEdit(item);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
                 db.News.Attach(model);
-                model.CreateDate = DateTime.Now;
-                model.ModifiedDate = DateTime.Now;
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
@@ -97,14 +101,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var item = db.News.Find(id);
-            if (item != null)
-            {
-                db.News.Remove(item);
-                db.SaveChanges();
-                return Json(new { success = true });
-            }
-            return Json(new { success = false });
+            return CustomDelete(id);
         }
 
         [HttpPost]
@@ -124,21 +121,16 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult DeleteAll(string ids)
         {
-            if (!string.IsNullOrEmpty(ids))
+            return CustomDeleteAll(ids, CustomDeleteAllAction);
+        }
+        private void CustomDeleteAllAction(int id)
+        {
+            var item = db.Set<News>().Find(id);
+
+            if (item != null)
             {
-                var items = ids.Split(',');
-                if (items != null && items.Any())
-                {
-                    foreach (var item in items)
-                    {
-                        var obj = db.News.Find(Convert.ToInt32(item));
-                        db.News.Remove(obj);
-                        db.SaveChanges();
-                    }
-                }
-                return Json(new { success = true });
+                db.Set<News>().Remove(item);
             }
-            return Json(new { success = false });
         }
     }
 }

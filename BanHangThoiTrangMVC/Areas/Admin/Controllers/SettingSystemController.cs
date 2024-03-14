@@ -2,6 +2,7 @@
 using BanHangThoiTrangMVC.Models.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,13 +10,29 @@ using System.Web.Mvc;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin, Employee")]
-    public class SettingSystemController : Controller
+    public class SettingSystemController : Controller, IDisposable
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: SettingSystem
         public ActionResult Index()
         {
             return View();
+        }
+        private void UpdateSetting(string key, string value)
+        {
+            var setting = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains(key));
+            if (setting == null)
+            {
+                setting = new SystemSetting();
+                setting.SettingKey = key;
+                setting.SettingValue = value;
+                db.SystemSettings.Add(setting);
+            }
+            else
+            {
+                setting.SettingValue = value;
+                db.Entry(setting).State = EntityState.Modified;
+            }
         }
 
         public ActionResult Partial_Setting()
@@ -25,6 +42,8 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddSetting(SettingSystemViewModel req)
         {
+            UpdateSetting("SettingTitle", req.SettingTitle);
+            UpdateSetting("SettingLogo", req.SettingLogo);
             SystemSetting set = null;
             var checkTitle = db.SystemSettings.FirstOrDefault(x => x.SettingKey.Contains("SettingTitle"));
             if (checkTitle == null)
@@ -126,6 +145,14 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
             db.SaveChanges();
 
             return View("Partial_Setting");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

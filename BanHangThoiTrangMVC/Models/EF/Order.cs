@@ -31,5 +31,10 @@ namespace BanHangThoiTrangMVC.Models.EF
         public int TypePayment { get; set; }
         public int Status { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        public override CommonAbstract Clone()
+        {
+            return (CommonAbstract)MemberwiseClone();
+        }
     }
 }

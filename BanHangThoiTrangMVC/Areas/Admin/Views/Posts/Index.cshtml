@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BanHangThoiTrangMVC.Models.EF.Posts>
+﻿@*@model IEnumerable<BanHangThoiTrangMVC.Models.EF.Posts>*@
+@model PagedList.IPagedList<BanHangThoiTrangMVC.Models.EF.Posts>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Quản Lý Bài Viết";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -45,10 +47,27 @@
 
             <div class="card-tools">
                 <a href="/admin/posts/add" class="btn btn-primary">Thêm Mới</a>
-                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa All</a>
+                <a href="#" class="btn btn-danger" id="BtnDeleteAll">Xóa Tất cả</a>
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-9">
+
+                </div>
+                <div class="col-3">
+                    @using (Html.BeginForm("Index", "Posts", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("Searchtext", null, new { @class = "form-control" })
+                            @*<input type="text" name="searchtext" class="form-control" />*@
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm Kiếm</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
             <table class="table table-hover">
                 <thead>
                 <th><input type="checkbox" id="SelectAll" style="height: 18px; width: 20px;" /></th>
@@ -90,7 +109,12 @@
                     }
                 </tbody>
             </table>
-
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
