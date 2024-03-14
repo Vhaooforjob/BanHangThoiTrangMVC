@@ -6,14 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin,Employee")]
-    public class PostsController : BaseController<Posts>
+    public class AdminNewsController : BaseController<News>
     {
-        // GET: Admin/Posts
         public ActionResult Index(string Searchtext, int? page)
         {
             var pageSize = 5;
@@ -21,7 +19,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
             {
                 page = 1;
             }
-            IEnumerable<Posts> items = db.Posts.OrderByDescending(x => x.Id);
+            IEnumerable<News> items = db.News.OrderByDescending(x => x.Id);
             if (!string.IsNullOrEmpty(Searchtext))
             {
                 items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
@@ -33,22 +31,40 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
             return View(items);
         }
 
+
+        /*public ActionResult Index(string Searchtext, int page = 1, int pagesize = 5)
+        {
+            var items = db.News.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+               items = (IOrderedQueryable<News>)items.Where(x => x.Alias.Equals(Searchtext) || x.Title.Contains(Searchtext));
+            }
+            items = items.ToPagedList(page, pagesize);
+            //Chỉnh cho STT tăng dần theo trang
+            ViewBag.PageSize = pagesize;
+            ViewBag.Page = page;
+            return View(items);
+        }*/
+
         public ActionResult Add()
         {
-            return CustomAdd(new Posts());
+            return CustomAdd(new News());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Posts model)
+        public ActionResult Add(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
-                model.CreateDate = DateTime.Now;
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.CategoryId = 5;
-                model.ModifiedDate = DateTime.Now;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
-                db.Posts.Add(model);
+                db.News.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("index");
             }
@@ -56,20 +72,25 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         }
         public ActionResult Edit(int Id)
         {
-            var item = db.Set<Posts>().Find(Id);
+            //var item = db.News.Find(Id);
+            //return View(item);
+            var item = db.Set<News>().Find(Id);
             return CustomEdit(item);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Posts model)
+        public ActionResult Edit(News model)
         {
+            News p = new News(null, DateTime.Now, DateTime.Now, null);
+            CommonAbstract c = (CommonAbstract)p.Clone();
+
             if (ModelState.IsValid)
             {
-                model.CreateDate = DateTime.Now;
-                model.ModifiedDate = DateTime.Now;
+                db.News.Attach(model);
+                model.CreateDate = c.CreateDate;
+                model.ModifiedDate = c.ModifiedDate;
                 model.Alias = BanHangThoiTrangMVC.Models.Common.Filter.FilterChar(model.Title);
-                db.Posts.Attach(model);
                 db.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("index");
@@ -86,7 +107,7 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult IsActive(int id)
         {
-            var item = db.Posts.Find(id);
+            var item = db.News.Find(id);
             if (item != null)
             {
                 item.IsActive = !item.IsActive;
@@ -104,11 +125,11 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         }
         private void CustomDeleteAllAction(int id)
         {
-            var item = db.Set<Posts>().Find(id);
+            var item = db.Set<News>().Find(id);
 
             if (item != null)
             {
-                db.Set<Posts>().Remove(item);
+                db.Set<News>().Remove(item);
             }
         }
     }

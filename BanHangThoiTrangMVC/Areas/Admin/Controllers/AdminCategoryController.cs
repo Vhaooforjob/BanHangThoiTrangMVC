@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class CategoryController : BaseController<Category>
+    public class AdminCategoryController : BaseController<Category>
     {
         // GET: Admin/Category
         public ActionResult Index()

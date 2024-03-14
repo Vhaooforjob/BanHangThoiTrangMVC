@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class OrderController : Controller
+    public class AdminOrderController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Order

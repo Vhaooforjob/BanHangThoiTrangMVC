@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
 {
-    public class StatisticalController : Controller
+    public class AdminStatisticalController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Statistical
