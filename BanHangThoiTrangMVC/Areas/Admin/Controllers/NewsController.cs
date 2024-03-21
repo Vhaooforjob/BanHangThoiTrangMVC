@@ -70,6 +70,44 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        //tính năng nhân bản
+
+        public ActionResult Duplicate(int Id)
+        {
+            var item = db.News.Find(Id);
+            if (item != null)
+            {
+                var clonedNews = item.Clone() as News; 
+                return View(clonedNews);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Duplicate(News model)
+        {
+            if (ModelState.IsValid)
+            {
+                var clonedNews = model.Clone() as News; 
+
+                clonedNews.CreateDate = DateTime.Now;
+                clonedNews.ModifiedDate = DateTime.Now;
+
+                db.News.Add(clonedNews);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
+        }
+
         public ActionResult Edit(int Id)
         {
             //var item = db.News.Find(Id);
