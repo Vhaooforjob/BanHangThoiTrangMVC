@@ -415,6 +415,10 @@
     <Compile Include="Migrations\202306021538158_UpdateStatusOrder.Designer.cs">
       <DependentUpon>202306021538158_UpdateStatusOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202403261727516_UpdateNewVoucherdb.cs" />
+    <Compile Include="Migrations\202403261727516_UpdateNewVoucherdb.Designer.cs">
+      <DependentUpon>202403261727516_UpdateNewVoucherdb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202403251912539_AddTableVoucher.cs" />
     <Compile Include="Migrations\202403251912539_AddTableVoucher.designer.cs">
       <DependentUpon>202403251912539_AddTableVoucher.cs</DependentUpon>
@@ -3901,6 +3905,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\202403261727516_UpdateNewVoucherdb.resx">
+      <DependentUpon>202403261727516_UpdateNewVoucherdb.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
