@@ -36,6 +36,7 @@ namespace BanHangThoiTrangMVC.Models
         public DbSet<Adv> Advs { get; set; }
         public DbSet<Posts> Posts { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Voucher> Voucher { get; set; }
         public DbSet<SystemSetting> SystemSettings { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Product> Products { get; set; }

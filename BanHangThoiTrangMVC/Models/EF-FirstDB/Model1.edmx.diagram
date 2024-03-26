@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fae430ece4674e7cbe7cd79c148fc8be" Name="Diagram1">
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.C__MigrationHistory" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.AspNetUser" Width="1.5" PointX="10" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Adv" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Category" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Contact" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_News" Width="1.5" PointX="10" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Order" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_OrderDetail" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Posts" Width="1.5" PointX="10" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Product" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_ProductCategory" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_ProductImage" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Subscribe" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_SystemSettin" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.tb_Vouchers" Width="1.5" PointX="12.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangThoiTrangMVCModel.ThongKe" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_News_dbo_tb_Category_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_Posts_dbo_tb_Category_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_OrderDetail_dbo_tb_Order_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_OrderDetail_dbo_tb_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_Product_dbo_tb_ProductCategory_ProductCategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.FK_dbo_tb_ProductImage_dbo_tb_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangThoiTrangMVCModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

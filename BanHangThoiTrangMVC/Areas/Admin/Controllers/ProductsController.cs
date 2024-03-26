@@ -1,5 +1,6 @@
 ﻿using BanHangThoiTrangMVC.Models;
 using BanHangThoiTrangMVC.Models.EF;
+using BanHangThoiTrangMVC.Models.EF_FirstDB;
 using PagedList;
 using System;
 using System.Collections.Generic;
