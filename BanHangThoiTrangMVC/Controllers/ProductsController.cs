@@ -1,31 +1,37 @@
-﻿using BanHangThoiTrangMVC.Models;
-using BanHangThoiTrangMVC.Models.EF;
-using System;
-using System.Collections.Generic;
+﻿using BanHangThoiTrangMVC.HelperModels.Paging;
+using BanHangThoiTrangMVC.Models;
+using BanHangThoiTrangMVC.Services.Interfaces;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace BanHangThoiTrangMVC.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly IProductService _productService;
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Products
-        public ActionResult Index(string Searchtext, int? id)
+
+        //public ProductsController() { }
+        public ProductsController(IProductService productService)
         {
-            /*var items = db.Products.Where(x => x.IsActive).Take(12).ToList();*/
-            IEnumerable<Product> items = db.Products.OrderByDescending(x => x.Id);
-            items = items.Where(x => x.IsActive).Take(12).ToList();
-            /*if (id != null)
+            _productService = productService;
+        }
+
+        // GET: Products
+        public async Task<ActionResult> Index(string Searchtext, int? id, int? page, int? limit)
+        {
+
+            PagingModel<ProductFilterModel> request = new PagingModel<ProductFilterModel>
             {
-                items = items.Where(x => x.ProductCategoryId == id).ToList();
-            }*/
-            if (!string.IsNullOrEmpty(Searchtext))
-            {
-                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
-            }
-            return View(items);
+                Limit = limit ?? 8,
+                Page = page ?? 0,
+                Filter = new ProductFilterModel
+                {
+                    Title = Searchtext,
+                }
+            };
+            return View(await this._productService.GetListProductAsync(request));
         }
 
         public ActionResult ProductCategory(string alias, int id)
@@ -56,20 +62,9 @@ namespace BanHangThoiTrangMVC.Controllers
             return PartialView(items);
         }
 
-        public ActionResult Detail(string alias, int id)
+        public async Task<ActionResult> Detail(string alias, int id)
         {
-            var item = db.Products.Find(id);
-            if (item != null)
-            {
-                db.Products.Attach(item);
-                item.ViewCount = item.ViewCount + 1;
-                if(item.ViewCount == 1000)
-                {
-                    item.ViewCount = 0;
-                }
-                db.Entry(item).Property(x => x.ViewCount).IsModified = true;
-                db.SaveChanges();
-            }
+            ProductViewModel item = await _productService.GetByIdAndCountAsync(id);
             return View(item);
         }
     }
