@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using BanHangThoiTrangMVC.Models.EF;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using CategoryModel = BanHangThoiTrangMVC.Models.EF.Category;
 
 namespace BanHangThoiTrangMVC.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-
+        //public ApplicationUser() { }
         public string Fullname { get; set; }
         public string Phone { get; set; }
         public List<string> RoleNames { get; set; }
@@ -29,11 +30,11 @@ namespace BanHangThoiTrangMVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Server=.;Database=BanHangThoiTrangMVC;TrustServerCertificate=true;Trusted_Connection=True", throwIfV1Schema: false)
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<Adv> Advs { get; set; }
         public DbSet<Posts> Posts { get; set; }
         public DbSet<News> News { get; set; }
