@@ -25,6 +25,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Danh Sách Đơn Hàng</h3>
+            <a id="exportButton" href="#" class="btn btn-sm btn-success" style="margin-left:120vh">Xuất file excel</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -167,5 +168,34 @@
                 });
             });
         });
+
+        function exportToExcel() {
+            // Send an AJAX request to the server to trigger the ExportFileExcel action
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/Order/ExportFileExcel', true); // Replace '/Order' with the appropriate controller route
+            xhr.responseType = 'blob'; // Set response type to blob (binary data)
+
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    // Create a blob object from the response
+                    var blob = new Blob([this.response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'DanhSachDonHang.xlsx'; // Set the filename
+                    document.body.appendChild(link);
+                    link.click(); // Trigger the download
+                    document.body.removeChild(link);
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Attach click event listener to the export button
+        document.getElementById('exportButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            exportToExcel();
+        });
+
     </script>
 }

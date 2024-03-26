@@ -13,10 +13,9 @@ namespace BanHangThoiTrangMVC.Models.EF
     {
         public News() { }
 
-        public News(int id, string title, string alias, string description, string detail, string image, int categoryId, string seoTitle,
+        public News(string title, string alias, string description, string detail, string image, int categoryId, string seoTitle,
         string seoDescription, string seoKeywords, bool isActive, string createBy, DateTime createDate, DateTime modifiedDate, string modifiedBy) : base(createBy, createDate, modifiedDate, modifiedBy)
         {
-            Id = id;
             Title = title;
             Alias = alias;
             Description = description;
@@ -53,7 +52,7 @@ namespace BanHangThoiTrangMVC.Models.EF
 
         public override CommonAbstract Clone()
         {
-            return (CommonAbstract)MemberwiseClone();
+            return (News)MemberwiseClone();
         }
 
     }

@@ -4,8 +4,16 @@
 @if (Model != null && Model.Any())
 {
     <h3>GIỎ HÀNG <span style="float:right;position:relative"><small>@Model.Count()</small></span></h3>
+    <div style="border:1px solid #808080; margin-bottom:10px;">
+        <div class="field">
+            <input id="voucherInput" type="text" placeholder="Nhập mã giảm giá" />
+        </div>
+        <button id="btn-app-voucher" type="button">Sử dụng</button>
+    </div>
+
     var i = 0;
     var tongtien = decimal.Zero;
+    var giamgia = decimal.Zero;
     <div style="border:1px solid #808080;">
         <table class="table">
             @foreach (var item in Model)
@@ -18,7 +26,15 @@
             }
             <tr>
                 <td>Tổng tiền</td>
-                <td>@Common.FormatNumber(tongtien, 0)</td>
+                <td id="totalAmount">@Common.FormatNumber(tongtien, 0)</td>
+            </tr>
+            <tr>
+                <td>Giảm giá</td>
+                <td id="discountAmount">@Common.FormatNumber(giamgia, 0)</td>
+            </tr>
+            <tr>
+                <td>Tổng tiền sau khi giảm giá</td>
+                <td id="finalAmount">@Common.FormatNumber(tongtien - giamgia, 0)</td>
             </tr>
         </table>
     </div>
@@ -28,4 +44,34 @@ else
 {
 
 }
+
+<script>
+    document.getElementById("btn-app-voucher").addEventListener("click", function () {
+        var voucherCode = document.getElementById("voucherInput").value;
+        $.ajax({
+            url: '/ShoppingCart/ValidateVoucher',
+            type: 'POST',
+            data: { voucherCode: voucherCode },
+            success: function (response) {
+                if (response.success) {
+                    var discountAmount = response.value;
+                    document.getElementById("discountAmount").innerText = discountAmount.toLocaleString('en-US');
+                    var totalAmount = parseFloat(document.getElementById("totalAmount").innerText.replace(/,/g, ''));
+                    var finalAmount = totalAmount - discountAmount;
+                    document.getElementById("finalAmount").innerText = finalAmount.toLocaleString('en-US');
+                    alert("Mã giảm giá hợp lệ!");
+                } else {
+                    alert("Mã giảm giá không hợp lệ hoặc đã hết hạn!");
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi xử lý mã giảm giá!");
+            }
+        });
+    });
+
+
+</script>
+
+
 
