@@ -252,6 +252,7 @@
     </Compile>
     <Compile Include="HelperModels\Paging\PagedResult.cs" />
     <Compile Include="HelperModels\Paging\PagingModel.cs" />
+    <Compile Include="MappingProfiles\CategoryMappingProfile.cs" />
     <Compile Include="MappingProfiles\OrderMappingProfile.cs" />
     <Compile Include="MappingProfiles\ProductMappingProfile.cs" />
     <Compile Include="Migrations\202304190519261_CreatedDatabase.cs" />
@@ -340,6 +341,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category\CategoryViewModel.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
@@ -371,9 +373,13 @@
     <Compile Include="Models\ThongKeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\Implement\CategoryRepository.cs" />
     <Compile Include="Repositories\Implement\ProductRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProductRepository.cs" />
+    <Compile Include="Services\Implement\CategoryService.cs" />
     <Compile Include="Services\Implement\ProductService.cs" />
+    <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IProductService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

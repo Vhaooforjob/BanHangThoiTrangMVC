@@ -1,7 +1,10 @@
 ﻿using BanHangThoiTrangMVC.Models;
+using BanHangThoiTrangMVC.Models.Category;
+using BanHangThoiTrangMVC.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,7 +12,14 @@ namespace BanHangThoiTrangMVC.Controllers
 {
     public class MenuController : Controller
     {
+        private readonly ICategoryService _categoryService;
         private ApplicationDbContext db = new ApplicationDbContext();
+        public MenuController(ICategoryService categoryService, ApplicationDbContext db)
+        {
+            _categoryService = categoryService;
+            this.db = db;
+        }
+
         // GET: Menu
         public ActionResult Index()
         {
@@ -18,7 +28,7 @@ namespace BanHangThoiTrangMVC.Controllers
 
         public ActionResult MenuTop()
         {
-            var items = db.Categories.OrderBy(x => x.Position).ToList();
+            List<CategoryViewModel> items = _categoryService.GetCategoriesList();
             return PartialView("_MenuTop", items);
         }
 
