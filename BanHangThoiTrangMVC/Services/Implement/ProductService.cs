@@ -12,10 +12,12 @@ namespace BanHangThoiTrangMVC.Services.Implement
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IMapper mapper) 
+        private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+        public ProductService(IProductRepository productRepository, IMapper mapper, IUnitOfWorkRepository unitOfWorkRepository) 
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _unitOfWorkRepository = unitOfWorkRepository;
         }
         public async Task<PagedResult<ProductViewModel>> GetListProductAsync(PagingModel<ProductFilterModel> request)
             => await this._productRepository.PagingAsync(request, (items) => this._mapper.Map<List<ProductViewModel>>(items));

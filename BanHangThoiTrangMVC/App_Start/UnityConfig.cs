@@ -36,9 +36,13 @@ namespace BanHangThoiTrangMVC
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<IProductService, ProductService>();
             container.RegisterType<ICategoryService, CategoryService>();
+            container.RegisterType<IShoppingCartService, ShoppingCartService>();
 
             container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<ICategoryRepository, CategoryRepository>();
+            container.RegisterType<IOrderRepository, OrderRepository>();
+
+            container.RegisterType<IUnitOfWorkRepository, UnitOfWorkRepository>();
 
             container.RegisterType<DbContext, ApplicationDbContext>(
                 new HierarchicalLifetimeManager());

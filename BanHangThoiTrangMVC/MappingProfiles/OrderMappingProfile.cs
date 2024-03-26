@@ -1,15 +1,18 @@
-using AutoMapper;
+﻿using AutoMapper;
 using BanHangThoiTrangMVC.Models;
 using BanHangThoiTrangMVC.Models.EF;
 
-public class OrderMappingProfile : Profile
+namespace BanHangThoiTrangMVC.MappingProfiles
 {
-    public OrderMappingProfile() 
+    public class OrderMappingProfile : Profile
     {
-        CreateMap<Order, OrderViewModel>();
-        CreateMap<OrderViewModel, Order>();
+        public OrderMappingProfile()
+        {
+            CreateMap<Order, OrderViewModel>();
+            CreateMap<OrderViewModel, Order>();
 
-        CreateMap<OrderDetail, OrderDetailViewModel>();
-        CreateMap<OrderDetailViewModel, OrderDetail>();
+            CreateMap<OrderDetail, OrderDetailViewModel>();
+            CreateMap<OrderDetailViewModel, OrderDetail>();
+        }
     }
 }
