@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BanHangThoiTrangMVC.MappingProfiles;
 
 namespace BanHangThoiTrangMVC.ExtensionAndHelper
 {
@@ -10,6 +11,7 @@ namespace BanHangThoiTrangMVC.ExtensionAndHelper
             {
                 cfg.AddProfile(typeof(ProductMappingProfile));
                 cfg.AddProfile(typeof(OrderMappingProfile));
+                cfg.AddProfile(typeof(CategoryMappingProfile));
             });
             return mapperConfiguration;
         }

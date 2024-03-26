@@ -217,20 +217,20 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthenticationManager.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SettingSystemController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminNewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminPostsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminProductCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminProductImageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminRoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminSettingSystemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminStatisticalController.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -253,6 +253,7 @@
     </Compile>
     <Compile Include="HelperModels\Paging\PagedResult.cs" />
     <Compile Include="HelperModels\Paging\PagingModel.cs" />
+    <Compile Include="MappingProfiles\CategoryMappingProfile.cs" />
     <Compile Include="MappingProfiles\OrderMappingProfile.cs" />
     <Compile Include="MappingProfiles\ProductMappingProfile.cs" />
     <Compile Include="Migrations\202304190519261_CreatedDatabase.cs" />
@@ -341,6 +342,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category\CategoryViewModel.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
@@ -372,9 +374,13 @@
     <Compile Include="Models\ThongKeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\Implement\CategoryRepository.cs" />
     <Compile Include="Repositories\Implement\ProductRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProductRepository.cs" />
+    <Compile Include="Services\Implement\CategoryService.cs" />
     <Compile Include="Services\Implement\ProductService.cs" />
+    <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IProductService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

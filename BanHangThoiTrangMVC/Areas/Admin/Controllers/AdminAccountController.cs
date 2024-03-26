@@ -23,9 +23,9 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private IEnumerable<object> roles;
 
-        //public AccountController()
-        //{
-        //}
+        public AdminAccountController()
+        {
+        }
 
         public AdminAccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
