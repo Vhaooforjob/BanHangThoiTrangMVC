@@ -46,18 +46,38 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
         // POST: Admin/Voucher/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(Voucher model, DateTime startDate, DateTime endDate)
+        public ActionResult Add(Voucher model)
         {
             if (ModelState.IsValid)
             {
-                model.StartDate = startDate;
-                model.EndDate = endDate;
-                db.Voucher.Add(model);
+                var voucher = new VoucherBuilder()
+                    .SetCode(model.Code)
+                    .SetValue(model.Value)
+                    .SetStartDate(model.StartDate)
+                    .SetEndDate(model.EndDate)
+                    .SetQuantity(model.Quantity)
+                    .Build();
+
+                db.Voucher.Add(voucher);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(model);
         }
+        //public ActionResult Add(Voucher model, DateTime startDate, DateTime endDate)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        model.StartDate = startDate;
+        //        model.EndDate = endDate;
+        //        db.Voucher.Add(model);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
         // GET: Admin/Voucher/Edit/5
         public ActionResult Edit(int id)
         {
