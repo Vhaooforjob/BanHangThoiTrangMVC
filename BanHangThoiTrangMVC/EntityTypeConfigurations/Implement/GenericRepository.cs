@@ -77,13 +77,4 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     public virtual Task<PagedResult<T>> PagingAsync<F, T>(PagingModel<F> request, Func<List<TEntity>, List<T>> mapping)
             => _dbSet.OrderProperty(request.Sorts).ToPagingAsync(request.Page, request.Limit, mapping);
 
-
-    //public virtual Task<PagedResult<TEntity>> PagingAsync<T>(PagingModel<T> request)
-    //{
-    //    return this._dbSet
-    //       .OrderProperty(request.Sorts)
-    //       .ToPagingAsync<TEntity, TEntity>(request.Page, request.Limit);
-    //}
-
-
 }

@@ -41,7 +41,7 @@ namespace BanHangThoiTrangMVC.Services.Implement
             return cart;
         }
 
-        public async Task<(CartCode, Order)> Checkout(OrderViewModel req, ShoppingCart cart)
+        public async Task<(CartCode, Order)> Checkout(OrderViewModel req, ShoppingCart cart, int voucherValue)
         {
             Order order = _mapper.Map<Order>(req);
             order.Status = 1;//chưa thanh toán / 2/đã thanh toán, 3/Hoàn thành, 4/hủy
@@ -51,8 +51,10 @@ namespace BanHangThoiTrangMVC.Services.Implement
                 Quantity = x.Quantity,
                 Price = x.Price
             }));
-            
-            order.TotalAmount = cart.Items.Sum(x => (x.Price * x.Quantity));
+            decimal totalAmountBeforeDiscount = cart.Items.Sum(x => x.Price * x.Quantity);
+            decimal totalAmountAfterDiscount = totalAmountBeforeDiscount - voucherValue;
+            order.TotalAmount = totalAmountAfterDiscount;
+            //order.TotalAmount = cart.Items.Sum(x => (x.Price * x.Quantity));
             order.CreateDate = DateTime.Now;
             order.ModifiedDate = DateTime.Now;
             Random rd = new Random();

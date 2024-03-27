@@ -7,6 +7,6 @@ namespace BanHangThoiTrangMVC.Services.Interfaces
     public interface IShoppingCartService
     {
         Task<ShoppingCart> AddToCart(int id, int quantity, ShoppingCart cart);
-        Task<(CartCode, Order)> Checkout(OrderViewModel req, ShoppingCart cart);
+        Task<(CartCode, Order)> Checkout(OrderViewModel req, ShoppingCart cart, int voucherValue);
     }
 }

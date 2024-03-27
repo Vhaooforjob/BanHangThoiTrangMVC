@@ -25,7 +25,7 @@ public class ProductRepository : GenericRepository<Product>, IProductRepository
             title = filter.Title;
         }
 
-        if (request.Sorts == null)
+        if (request.Sorts == null || !request.Sorts.Any())
             request.Sorts = new List<SortItems>
             {
                 new SortItems

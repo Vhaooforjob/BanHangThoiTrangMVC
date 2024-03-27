@@ -1,4 +1,5 @@
 ﻿using BanHangThoiTrangMVC.HelperModels.Paging;
+using BanHangThoiTrangMVC.Strategy.SortingStrategy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -61,19 +62,22 @@ namespace BanHangThoiTrangMVC.ExtensionAndHelper
 
             for (int i = 0; i < sortItems.Count; i++)
             {
+                string propertyName = getProperty(sortItems[i].Column);
+                ISortingStrategy<T> strategy;
+
                 if (i == 0)
                 {
-                    if (sortItems[i].IsDesc)
-                        result = query.OrderByDescending(getProperty(sortItems[i].Column));
-                    else
-                        result = query.OrderBy(getProperty(sortItems[i].Column));
+                    strategy = sortItems[i].IsDesc
+                        ? (ISortingStrategy<T>)new DescendingSortStrategy<T>()
+                        : new AscendingSortStrategy<T>();
+                    result = new SortingStrategyContext<T>(strategy).Sort(query, propertyName);
                 }
                 else
                 {
-                    if (sortItems[i].IsDesc)
-                        result = result?.ThenByDescending(getProperty(sortItems[i].Column));
-                    else
-                        result = result?.ThenBy(getProperty(sortItems[i].Column));
+                    strategy = sortItems[i].IsDesc
+                        ? (ISortingStrategy<T>)new ThenByDescendingSortStrategy<T>()
+                        : new ThenBySortStrategy<T>();
+                    result = new SortingStrategyContext<T>(strategy).Sort(query, propertyName);
                 }
             }
 
@@ -88,35 +92,7 @@ namespace BanHangThoiTrangMVC.ExtensionAndHelper
             }
         }
 
-        public static IOrderedQueryable<T> OrderBy<T>(
-            this IQueryable<T> source,
-            string property)
-        {
-            return ApplyOrder<T>(source, property, "OrderBy");
-        }
-
-        public static IOrderedQueryable<T> OrderByDescending<T>(
-            this IQueryable<T> source,
-            string property)
-        {
-            return ApplyOrder<T>(source, property, "OrderByDescending");
-        }
-
-        public static IOrderedQueryable<T> ThenBy<T>(
-            this IOrderedQueryable<T> source,
-            string property)
-        {
-            return ApplyOrder<T>(source, property, "ThenBy");
-        }
-
-        public static IOrderedQueryable<T> ThenByDescending<T>(
-            this IOrderedQueryable<T> source,
-            string property)
-        {
-            return ApplyOrder<T>(source, property, "ThenByDescending");
-        }
-
-        static IOrderedQueryable<T> ApplyOrder<T>(
+        public static IOrderedQueryable<T> ApplyOrder<T>(
             IQueryable<T> source,
             string property,
             string methodName)
