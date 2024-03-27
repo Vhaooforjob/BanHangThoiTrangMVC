@@ -35,7 +35,6 @@ namespace BanHangThoiTrangMVC.Controllers
             return View();
         }
 
-
         public ActionResult CheckOut()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
@@ -45,6 +44,7 @@ namespace BanHangThoiTrangMVC.Controllers
             }
             return View();
         }
+
         public ActionResult CheckOutSuccess()
         {
             return View();
@@ -123,6 +123,29 @@ namespace BanHangThoiTrangMVC.Controllers
             return Json(new { Count = 0 }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult ValidateVoucher(string voucherCode)
+        {
+            var voucher = db.Voucher.FirstOrDefault(v => v.Code == voucherCode);
+
+            if (voucher != null)
+            {
+                if (voucher.StartDate <= DateTime.Now && voucher.EndDate >= DateTime.Now)
+                {
+                    TempData["VoucherValue"] = voucher.Value;
+                    return Json(new { success = true, value = voucher.Value });
+                }
+                else
+                {
+
+                    return Json(new { success = false, message = "Mã giảm giá đã hết hạn." });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "Mã giảm giá không hợp lệ." });
+            }
+        }
 
         [HttpPost]
         [Authorize]

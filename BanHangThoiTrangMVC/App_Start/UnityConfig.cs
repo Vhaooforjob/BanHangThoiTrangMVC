@@ -7,6 +7,8 @@ using BanHangThoiTrangMVC.Repositories.Implement;
 using BanHangThoiTrangMVC.Repositories.Interfaces;
 using BanHangThoiTrangMVC.Services.Implement;
 using BanHangThoiTrangMVC.Services.Interfaces;
+using BanHangThoiTrangMVC.Strategy.Sort;
+using BanHangThoiTrangMVC.Strategy;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -70,6 +72,10 @@ namespace BanHangThoiTrangMVC
             //container.RegisterType<DbContext>(new TransientLifetimeManager());
             container.RegisterType<DbContext>(new TransientLifetimeManager(), new InjectionFactory(x => new ApplicationDbContext()));
 
+            //SortProduct
+            container.RegisterType<IProductSortingStrategy, DefaultProductSortingStrategy>();
+            container.RegisterType<IProductSortingStrategy, PriceProductSortingStrategy>();
+            container.RegisterType<IProductSortingStrategy, NameProductSortingStrategy>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
