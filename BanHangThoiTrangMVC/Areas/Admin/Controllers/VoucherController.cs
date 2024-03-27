@@ -1,6 +1,5 @@
 ﻿using BanHangThoiTrangMVC.Models;
 using BanHangThoiTrangMVC.Models.EF;
-using DocumentFormat.OpenXml.Wordprocessing;
 using PagedList;
 using System;
 using System.Collections.Generic;

@@ -432,14 +432,6 @@
     <Compile Include="Migrations\202403261533060_UpdatetbVouchersBuilder.Designer.cs">
       <DependentUpon>202403261533060_UpdatetbVouchersBuilder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403261716498_MyUpdateNewdb.cs" />
-    <Compile Include="Migrations\202403261716498_MyUpdateNewdb.Designer.cs">
-      <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.cs" />
-    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.Designer.cs">
-      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CartCode.cs" />
@@ -3910,12 +3902,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403261533060_UpdatetbVouchersBuilder.resx">
       <DependentUpon>202403261533060_UpdatetbVouchersBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403261716498_MyUpdateNewdb.resx">
-      <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403261818088_NewupdatetbVoucher.resx">
-      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
