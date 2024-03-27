@@ -17,7 +17,7 @@
             success: function (rs) {
                 if (rs.Success) {
                     $('#checkout_items').html(rs.Count);
-                    alert(rs.msg);
+                    alert(rs.Msg);
                 }
             }
         });

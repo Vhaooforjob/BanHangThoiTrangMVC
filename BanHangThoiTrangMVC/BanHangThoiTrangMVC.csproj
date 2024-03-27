@@ -331,6 +331,7 @@
     <Compile Include="MappingProfiles\CategoryMappingProfile.cs" />
     <Compile Include="MappingProfiles\OrderMappingProfile.cs" />
     <Compile Include="MappingProfiles\ProductMappingProfile.cs" />
+    <Compile Include="MappingProfiles\ShoppingCartMappingProfile.cs" />
     <Compile Include="Migrations\202304190519261_CreatedDatabase.cs" />
     <Compile Include="Migrations\202304190519261_CreatedDatabase.Designer.cs">
       <DependentUpon>202304190519261_CreatedDatabase.cs</DependentUpon>
@@ -431,16 +432,9 @@
     <Compile Include="Migrations\202403261533060_UpdatetbVouchersBuilder.Designer.cs">
       <DependentUpon>202403261533060_UpdatetbVouchersBuilder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403261716498_MyUpdateNewdb.cs" />
-    <Compile Include="Migrations\202403261716498_MyUpdateNewdb.Designer.cs">
-      <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.cs" />
-    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.Designer.cs">
-      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CartCode.cs" />
     <Compile Include="Models\Category\CategoryViewModel.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -477,13 +471,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\Implement\CategoryRepository.cs" />
+    <Compile Include="Repositories\Implement\OrderRepository.cs" />
     <Compile Include="Repositories\Implement\ProductRepository.cs" />
+    <Compile Include="Repositories\Implement\UnitOfWorkRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IOrderRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProductRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUnitOfWorkRepository.cs" />
     <Compile Include="Services\Implement\CategoryService.cs" />
     <Compile Include="Services\Implement\ProductService.cs" />
+    <Compile Include="Services\Implement\ShoppingCartService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IProductService.cs" />
+    <Compile Include="Services\Interfaces\IShoppingCartService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Strategy\Sort\DefaultProductSortingStrategy.cs" />
     <Compile Include="Strategy\Sort\IProductSortingStrategy.cs" />
@@ -3902,12 +3902,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403261533060_UpdatetbVouchersBuilder.resx">
       <DependentUpon>202403261533060_UpdatetbVouchersBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403261716498_MyUpdateNewdb.resx">
-      <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202403261818088_NewupdatetbVoucher.resx">
-      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

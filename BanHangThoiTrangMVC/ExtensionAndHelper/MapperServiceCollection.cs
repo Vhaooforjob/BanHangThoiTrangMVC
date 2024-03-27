@@ -12,6 +12,7 @@ namespace BanHangThoiTrangMVC.ExtensionAndHelper
                 cfg.AddProfile(typeof(ProductMappingProfile));
                 cfg.AddProfile(typeof(OrderMappingProfile));
                 cfg.AddProfile(typeof(CategoryMappingProfile));
+                cfg.AddProfile(typeof(ShoppingCartMappingProfile));
             });
             return mapperConfiguration;
         }
