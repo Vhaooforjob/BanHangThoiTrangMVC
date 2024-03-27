@@ -415,10 +415,6 @@
     <Compile Include="Migrations\202306021538158_UpdateStatusOrder.Designer.cs">
       <DependentUpon>202306021538158_UpdateStatusOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202403261727516_UpdateNewVoucherdb.cs" />
-    <Compile Include="Migrations\202403261727516_UpdateNewVoucherdb.Designer.cs">
-      <DependentUpon>202403261727516_UpdateNewVoucherdb.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202403251912539_AddTableVoucher.cs" />
     <Compile Include="Migrations\202403251912539_AddTableVoucher.designer.cs">
       <DependentUpon>202403251912539_AddTableVoucher.cs</DependentUpon>
@@ -438,6 +434,10 @@
     <Compile Include="Migrations\202403261716498_MyUpdateNewdb.cs" />
     <Compile Include="Migrations\202403261716498_MyUpdateNewdb.Designer.cs">
       <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.cs" />
+    <Compile Include="Migrations\202403261818088_NewupdatetbVoucher.Designer.cs">
+      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -485,6 +485,10 @@
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\IProductService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Strategy\Sort\DefaultProductSortingStrategy.cs" />
+    <Compile Include="Strategy\Sort\IProductSortingStrategy.cs" />
+    <Compile Include="Strategy\Sort\NameProductSortingStrategy.cs" />
+    <Compile Include="Strategy\Sort\PriceProductSortingStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\dist\css\adminlte.css" />
@@ -3902,12 +3906,12 @@
     <EmbeddedResource Include="Migrations\202403261716498_MyUpdateNewdb.resx">
       <DependentUpon>202403261716498_MyUpdateNewdb.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403261818088_NewupdatetbVoucher.resx">
+      <DependentUpon>202403261818088_NewupdatetbVoucher.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-    <EmbeddedResource Include="Migrations\202403261727516_UpdateNewVoucherdb.resx">
-      <DependentUpon>202403261727516_UpdateNewVoucherdb.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
