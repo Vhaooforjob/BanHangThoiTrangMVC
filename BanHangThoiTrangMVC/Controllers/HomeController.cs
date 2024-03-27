@@ -10,7 +10,8 @@ namespace BanHangThoiTrangMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = DbContextSingleton.GetInstance();
         public ActionResult Index()
         {
             return View();
