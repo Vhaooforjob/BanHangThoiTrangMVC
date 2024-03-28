@@ -197,7 +197,93 @@ namespace BanHangThoiTrangMVC.Controllers
             return Json(false);
         }
 
+        //public ActionResult CheckOut(OrderViewModel req)
+        //{
+        //    var code = new { Success = false, Code = -1, Url = "" };
+        //    if (ModelState.IsValid)
+        //    {
+        //        ShoppingCart cart = (ShoppingCart)Session["Cart"];
+        //        if (cart != null)
+        //        {
+        //            Order order = new Order();
+        //            int voucherValue = Convert.ToInt32(TempData["VoucherValue"]);
+        //            //Voucher voucher = new Voucher("DC80", 50000, DateTime.Parse("2024-03-20"), DateTime.Parse("2025-03-20"), 2);
+        //            order.CustomerName = req.CustomerName;
+        //            order.Phone = req.Phone;
+        //            order.Address = req.Address;
+        //            order.Email = req.Email;
+        //            order.Status = 1;//chưa thanh toán / 2/đã thanh toán, 3/Hoàn thành, 4/hủy
+        //            cart.Items.ForEach(x => order.OrderDetails.Add(new OrderDetail
+        //            {
+        //                ProductId = x.ProductId,
+        //                Quantity = x.Quantity,
+        //                Price = x.Price
+        //            }));
+        //            decimal totalAmountBeforeDiscount = cart.Items.Sum(x => x.Price * x.Quantity);
+        //            decimal totalAmountAfterDiscount = totalAmountBeforeDiscount - voucherValue;
+        //            order.TotalAmount = totalAmountAfterDiscount;
+        //            //order.TotalAmount = cart.Items.Sum(x => (x.Price * x.Quantity));
+        //            order.TypePayment = req.TypePayment;
+        //            order.CreateDate = DateTime.Now;
+        //            order.ModifiedDate = DateTime.Now;
+        //            order.CreateBy = req.Phone;
+        //            Random rd = new Random();
+        //            order.Code = "DH" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
+        //            //order.E = req.CustomerName;
+        //            db.Orders.Add(order);
+        //            db.SaveChanges();
+        //            //send mail cho khachs hang
+        //            var strSanPham = "";
+        //            var thanhtien = decimal.Zero;
+        //            var TongTien = decimal.Zero;
+        //            foreach (var sp in cart.Items)
+        //            {
+        //                strSanPham += "<tr>";
+        //                strSanPham += "<td>" + sp.ProductName + "</td>";
+        //                strSanPham += "<td>" + sp.Quantity + "</td>";
+        //                strSanPham += "<td>" + BanHangThoiTrangMVC.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
+        //                strSanPham += "</tr>";
+        //                thanhtien += sp.Price * sp.Quantity;
+        //            }
+        //            TongTien = thanhtien;
+        //            string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
+        //            contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);
+        //            contentCustomer = contentCustomer.Replace("{{SanPham}}", strSanPham);
+        //            contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+        //            contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", order.CustomerName);
+        //            contentCustomer = contentCustomer.Replace("{{Phone}}", order.Phone);
+        //            contentCustomer = contentCustomer.Replace("{{Email}}", req.Email);
+        //            contentCustomer = contentCustomer.Replace("{{DiaChiNhanHang}}", order.Address);
+        //            contentCustomer = contentCustomer.Replace("{{ThanhTien}}", BanHangThoiTrangMVC.Common.Common.FormatNumber(thanhtien, 0));
+        //            contentCustomer = contentCustomer.Replace("{{TongTien}}", BanHangThoiTrangMVC.Common.Common.FormatNumber(TongTien, 0));
+        //            BanHangThoiTrangMVC.Common.Common.SendMail("ShopOnline", "Đơn hàng #" + order.Code, contentCustomer.ToString(), req.Email);
 
+        //            string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send1.html"));
+        //            contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
+        //            contentAdmin = contentAdmin.Replace("{{SanPham}}", strSanPham);
+        //            contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+        //            contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", order.CustomerName);
+        //            contentAdmin = contentAdmin.Replace("{{Phone}}", order.Phone);
+        //            contentAdmin = contentAdmin.Replace("{{Email}}", req.Email);
+        //            contentAdmin = contentAdmin.Replace("{{DiaChiNhanHang}}", order.Address);
+        //            contentAdmin = contentAdmin.Replace("{{ThanhTien}}", BanHangThoiTrangMVC.Common.Common.FormatNumber(thanhtien, 0));
+        //            contentAdmin = contentAdmin.Replace("{{TongTien}}", BanHangThoiTrangMVC.Common.Common.FormatNumber(TongTien, 0));
+        //            BanHangThoiTrangMVC.Common.Common.SendMail("ShopOnline", "Đơn hàng mới #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
+        //            cart.ClearCart();
+        //            code = new { Success = true, Code = req.TypePayment, Url = "" };
+        //            //var url = "";
+        //            if (req.TypePayment == 2)
+        //            {
+        //                var url = UrlPayment(req.TypePaymentVN, order.Code);
+        //                code = new { Success = true, Code = req.TypePayment, Url = url };
+        //            }
+
+        //            //code = new { Success = true, Code = 1, Url = url };
+        //            //return RedirectToAction("CheckOutSuccess");
+        //        }
+        //    }
+        //    return Json(code);
+        //}
         public ActionResult Partial_Item_Cart()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
