@@ -11,5 +11,7 @@ public class ShoppingCartMappingProfile : Profile
             .ForMember(dest => dest.ProductName, src => src.MapFrom(p => p.Title))
             .ForMember(dest => dest.TotalPrice, src => src.MapFrom(p => p.Quantity * p.Price))
             .ForMember(dest => dest.CategoryName, src => src.MapFrom(p => p.ProductCategory.Title));
+
+        CreateMap<OrderDetail, ShoppingCartItem>();
     }
 }

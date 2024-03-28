@@ -65,9 +65,10 @@ namespace BanHangThoiTrangMVC.Controllers
             if (ModelState.IsValid)
             {
                 ShoppingCart cart = (ShoppingCart)Session["Cart"];
-                if (cart != null)
+                if (cart.Items != null && cart.Items.Any())
                 {
-                    (code, order) = await _shoppingCartService.Checkout(req, cart);
+                    int voucherValue = Convert.ToInt32(TempData["VoucherValue"]);
+                    (code, order) = await _shoppingCartService.Checkout(req, cart, voucherValue);
                     //send mail cho khachs hang
                     var strSanPham = "";
                     var thanhtien = decimal.Zero;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -36,6 +37,7 @@ public class ProductViewModel
     public string SeoDescription { get; set; }
     [StringLength(250)]
     public string SeoKeywords { get; set; }
+    public DateTime CreateDate { get; set; }
 
     public virtual ProductCategoryViewModel ProductCategory { get; set; }
     public virtual List<ProductImageViewModel> ProductImages { get; set; }

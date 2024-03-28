@@ -485,6 +485,9 @@
     <Compile Include="Services\Interfaces\IProductService.cs" />
     <Compile Include="Services\Interfaces\IShoppingCartService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Strategy\SortingStrategy\ISortingStrategy.cs" />
+    <Compile Include="Strategy\SortingStrategy\SortByConcretes.cs" />
+    <Compile Include="Strategy\SortingStrategy\SortingStrategyContext.cs" />
     <Compile Include="Strategy\Sort\DefaultProductSortingStrategy.cs" />
     <Compile Include="Strategy\Sort\IProductSortingStrategy.cs" />
     <Compile Include="Strategy\Sort\NameProductSortingStrategy.cs" />

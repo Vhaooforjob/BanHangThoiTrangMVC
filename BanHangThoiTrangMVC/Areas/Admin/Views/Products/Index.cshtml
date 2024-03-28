@@ -1,5 +1,5 @@
-﻿@model PagedList.IPagedList<BanHangThoiTrangMVC.Models.EF.Product>
-@using PagedList.Mvc;
+﻿@model PagedResult<ProductViewModel>
+@using BanHangThoiTrangMVC.HelperModels.Paging
 @{
     ViewBag.Title = "Danh Sách Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -66,29 +66,92 @@
             </div>
             <table class="table table-hover">
                 <thead>
-                <th><input type="checkbox" id="SelectAll" /></th>
-                <th>STT</th>
-                <th>Hình Ảnh</th>
-                <th>Tên Sản Phẩm</th>
-                <th>Danh Mục</th>
-                <th>Số Lượng</th>
-                <th>Giá</th>
-                <th>Ngày Tạo</th>
-                <th>Home</th>
-                <th>Sale</th>
-                <th>Hiển Thị</th>
+                    <th><input type="checkbox" id="SelectAll" /></th>
+                    <th>STT</th>
+                    <th>
+                    
+                        Hình Ảnh
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = ViewBag.Page, sortColumn = "Title", isDesc = !ViewBag.IsDesc })">
+                            Tên Sản Phẩm
+                            @if (ViewBag.Column == "Title")
+                            {
+                                <i class="@(ViewBag.IsDesc != null && ViewBag.IsDesc ? "fa fa-arrow-down" : "fa fa-arrow-up")"></i>
+                            }
+                            else
+                            {
+                                <i class="@("fa fa-sort")"></i>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = ViewBag.Page, sortColumn = "ProductCategory.Title", isDesc = !ViewBag.IsDesc })">
+                            Danh Mục
+                            @if (ViewBag.Column == "ProductCategory.Title")
+                            {
+                                <i class="@(ViewBag.IsDesc != null && ViewBag.IsDesc ? "fa fa-arrow-down" : "fa fa-arrow-up")"></i>
+                            }
+                            else
+                            {
+                                <i class="@("fa fa-sort")"></i>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = ViewBag.Page, sortColumn = "Quantity", isDesc = !ViewBag.IsDesc })">
+                            Số Lượng
+                            @if (ViewBag.Column == "Quantity")
+                            {
+                                <i class="@(ViewBag.IsDesc != null && ViewBag.IsDesc ? "fa fa-arrow-down" : "fa fa-arrow-up")"></i>
+                            }
+                            else
+                            {
+                                <i class="@("fa fa-sort")"></i>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = ViewBag.Page, sortColumn = "Price", isDesc = !ViewBag.IsDesc })">
+                            Giá
+                            @if (ViewBag.Column == "Price")
+                            {
+                                <i class="@(ViewBag.IsDesc != null && ViewBag.IsDesc ? "fa fa-arrow-down" : "fa fa-arrow-up")"></i>
+                            }
+                            else
+                            {
+                                <i class="@("fa fa-sort")"></i>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = ViewBag.Page, sortColumn = "CreateDate", isDesc = !ViewBag.IsDesc })">
+                            Ngày Tạo
+                            @if (ViewBag.Column == "CreateDate")
+                            {
+                                <i class="@(ViewBag.IsDesc != null && ViewBag.IsDesc ? "fa fa-arrow-down" : "fa fa-arrow-up")"></i>
+                            }
+                            else
+                            {
+                                <i class="@("fa fa-sort")"></i>
+                            }
+                        </a>
+                    </th>
+                    <th>Home</th>
+                    <th>Sale</th>
+                    <th>Hiển Thị</th>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (Model != null && Model.Items.Any())
                     {
-                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
-                        foreach (var item in Model)
+                        var i = (ViewBag.Page * ViewBag.PageSize) + 1;
+                        foreach (var item in Model.Items)
                         {
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             <tr id="trow_@item.Id">
-                                <td><input type="checkbox" class="cbkItem" value="@item.Id"/></td>
+                                <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
                                 <td><img class="imgproduct" data-id="@item.Id" src="@item.ProductImages.FirstOrDefault(x=>x.IsDefault).Image" width="50" /></td>
                                 <td>@item.Title</td>
@@ -121,12 +184,28 @@
                     }
                 </tbody>
             </table>
+            <div class="text-center">
 
-            <div class="row">
-                <div class="col-6"></div>
-                <div class="col-6" style="text-align:right;">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = Model.Page > 0 ? Model.Page - 1 : 0, sortColumn = "Title", isDesc = ViewBag.IsDesc })">
+                                Previous
+                            </a>
+                        </li>
+                        @for (int i = 1; i < Math.Ceiling((double)Model.Total / Model.Limit); i++)
+                        {
+                            <li class="@(Model.Page == i ? "selected" : "")">
+                                <a href="@Url.Action("Index", new { page = i, sortColumn = "Title", isDesc = ViewBag.IsDesc })">@(i)</a>
+                            </li>
+                        }
+                        <li class="page-item">
+                            <a href="@Url.Action("Index", new { page = Model.Page < Math.Ceiling((double)Model.Total / Model.Limit) ? Model.Page + 1 : Math.Ceiling((double)Model.Total / Model.Limit), sortColumn = "Title", isDesc = ViewBag.IsDesc })">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <!-- /.card-body -->

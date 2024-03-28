@@ -64,7 +64,7 @@ namespace BanHangThoiTrangMVC.Controllers
                 Items = sortedProducts.ToList(),
                 Page = request.Page,
                 Limit = request.Limit,
-                Total = sortedProducts.Count()
+                Total = products.Total
             };
 
             return View(pagedResult);

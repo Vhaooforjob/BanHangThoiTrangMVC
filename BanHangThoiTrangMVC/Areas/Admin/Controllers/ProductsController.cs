@@ -1,9 +1,12 @@
-﻿using BanHangThoiTrangMVC.Models;
+﻿using BanHangThoiTrangMVC.HelperModels.Paging;
+using BanHangThoiTrangMVC.Models;
 using BanHangThoiTrangMVC.Models.EF;
+using BanHangThoiTrangMVC.Services.Interfaces;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,25 +15,64 @@ namespace BanHangThoiTrangMVC.Areas.Admin.Controllers
     [Authorize(Roles = "Admin, Employee")]
     public class ProductsController : Controller
     {
+        private string _curSortColumn = "";
+        private bool _curSortIsDesc = false;
+
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Admin/Products
-        public ActionResult Index(string Searchtext, int? page)
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
         {
-            IEnumerable<Product> items = db.Products.OrderByDescending(x => x.Id);
-            var pageSize = 5;
-            if (page == null)
+            _productService = productService;
+        }
+
+        // GET: Admin/Products
+        public async Task<ActionResult> Index(string Searchtext, int? page, int? limit, string sortColumn, bool? isDesc)
+        {
+            SortItems sortItems = new SortItems()
             {
-                page = 1;
-            }
-            if (!string.IsNullOrEmpty(Searchtext))
+                Column = sortColumn,
+                IsDesc = isDesc ?? false
+            };
+
+            if (string.IsNullOrEmpty(sortItems.Column) && !string.IsNullOrEmpty(_curSortColumn))
             {
-                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+                sortItems = new SortItems()
+                {
+                    Column = _curSortColumn,
+                    IsDesc = _curSortIsDesc
+                };
             }
-            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            items = items.ToPagedList(pageIndex, pageSize);
-            ViewBag.PageSize = pageSize;
-            ViewBag.Page = page;
-            return View(items);
+            page = page ?? 0;
+            PagingModel<ProductFilterModel> request = new PagingModel<ProductFilterModel>
+            {
+                Limit = limit ?? 5,
+                Page = page ?? 0,
+                Filter = new ProductFilterModel
+                {
+                    Title = Searchtext,
+                },
+                Sorts = sortItems != null && !string.IsNullOrEmpty(sortItems.Column) ? new List<SortItems> { sortItems } : new List<SortItems>(),
+            };
+            var products = await _productService.GetListProductAsync(request);
+
+            //IEnumerable<Product> items = db.Products.OrderByDescending(x => x.Id);
+            //var pageSize = 5;
+            //if (page == null)
+            //{
+            //    page = 1;
+            //}
+            //if (!string.IsNullOrEmpty(Searchtext))
+            //{
+            //    items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+            //}
+            //var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            //items = items.ToPagedList(pageIndex, pageSize);
+            ViewBag.IsDesc = _curSortIsDesc = sortItems.IsDesc;
+            ViewBag.Column = _curSortColumn = sortItems.Column;
+            ViewBag.PageSize = products.Limit;
+            ViewBag.Page = products.Page;
+            return View(products);
         }
 
         public ActionResult Add()
